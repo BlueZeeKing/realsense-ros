@@ -49,6 +49,9 @@ RealSenseNodeFactory::on_configure(const rclcpp_lifecycle::State & state)
     RCLCPP_INFO(get_logger(), "🚀 Lifecycle Transition | FROM: %s (%d) → TO: CONFIGURING",
                 state.label().c_str(), state.id());
     init();
+    while (!_device || _initial_reset) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
     return CallbackReturn::SUCCESS;
 }
 
